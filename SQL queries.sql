@@ -1,10 +1,10 @@
-**Задание 1.a. Решение**
+-- Задание 1.a. Решение --
 
 SELECT E.name AS employee_name, D.name AS department_name
 FROM Employees AS E
 LEFT JOIN Departments AS D ON E.Dep_id = D.id;
 
-**Задание 1.b. Решение**
+-- Задание 1.b. Решение --
 
 SELECT D.name AS department_name, MAX(E.Salary) AS max_salary
 FROM Departments AS D
@@ -12,13 +12,13 @@ LEFT JOIN Employees AS E ON D.id = E.Dep_id
 GROUP BY D.name
 ORDER BY max_salary DESC;
 
-**Задание 2.a. Решение**
+-- Задание 2.a. Решение --
 
 SELECT SUM(price * items) AS female_revenue 
 FROM Purchases
 WHERE user_gender = 'f' OR user_gender = 'female';
 
-**Задание 2.b. Решение**
+-- Задание 2.b. Решение --
   
 SELECT 
     CASE WHEN user_gender IN ('f', 'female') THEN 'Female'
@@ -30,7 +30,7 @@ FROM Purchases
 WHERE user_gender IN ('f', 'female', 'm', 'male')
 GROUP BY gender;
 
-**Задание 2.c. Решение**
+-- Задание 2.c. Решение --
 
 SELECT COUNT(DISTINCT user_id) AS count_male_users
 FROM Purchases
@@ -38,7 +38,7 @@ WHERE (user_gender = 'm' OR user_gender = 'male')
 GROUP BY user_id
 HAVING SUM(items) > 3;
 
-**Задание 3.a. Решение**
+-- Задание 3.a. Решение --
 
 SELECT user_id, first_item
 FROM (
@@ -49,7 +49,7 @@ FROM (
 ) t
 GROUP BY user_id, first_item;
 
-**Задание 3.b. Решение**
+-- Задание 3.b. Решение --
 
 WITH first_transactions AS (
   SELECT user_id, MIN(transaction_ts) AS first_ts
