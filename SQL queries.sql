@@ -73,6 +73,24 @@ FROM
 ) t
 GROUP BY t.user_id;
 
+-- Задание 4.a. Решение --
+
+SELECT
+  date,
+  COUNT(DISTINCT user_id) AS unique_users,
+  COUNT(DISTINCT video_id) AS unique_videos,
+  COUNT(*) AS total_views
+FROM Video.csv
+GROUP BY date
+ORDER BY date;
+
+-- Задание 4.b. Решение --
+
+SELECT user_id
+FROM Video.csv
+WHERE date BETWEEN '2020-01-01' AND '2020-01-31'
+GROUP BY user_id;
+
 -- Задание 4.c. Решение --
 -- Эту задачу можно решить двумя способами
 -- Решение 1 с помощью подзапроса и HAVING clause
@@ -85,7 +103,7 @@ FROM Video.csv
 WHERE video_id = 2
 )
 GROUP BY user_id
-HAVING COUNT(DISTINCT video_id) = 2
+HAVING COUNT(DISTINCT video_id) = 2;
 
 -- Решение 2 с помощью двух CTEs
 WITH
@@ -106,4 +124,4 @@ SELECT user_id
 FROM video_view_2
 )
 GROUP BY user_id
-HAVING COUNT(DISTINCT video_id) = 2
+HAVING COUNT(DISTINCT video_id) = 2;
