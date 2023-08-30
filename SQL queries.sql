@@ -72,3 +72,38 @@ FROM
   GROUP BY user_id
 ) t
 GROUP BY t.user_id;
+
+-- Задание 4.c. Решение --
+-- Эту задачу можно решить двумя способами
+-- Решение 1 с помощью подзапроса и HAVING clause
+SELECT user_id
+FROM Video.csv
+WHERE video_id IN (1,3)
+AND user_id NOT IN (
+SELECT user_id
+FROM Video.csv
+WHERE video_id = 2
+)
+GROUP BY user_id
+HAVING COUNT(DISTINCT video_id) = 2
+
+-- Решение 2 с помощью двух CTEs
+WITH
+video_views_1_3 AS (
+SELECT user_id, video_id
+FROM Video.csv
+WHERE video_id IN (1,3)
+),
+video_view_2 AS (
+SELECT user_id, video_id
+FROM Video.csv
+WHERE video_id = 2
+)
+SELECT user_id
+FROM video_views_1_3
+WHERE user_id NOT IN (
+SELECT user_id
+FROM video_view_2
+)
+GROUP BY user_id
+HAVING COUNT(DISTINCT video_id) = 2
